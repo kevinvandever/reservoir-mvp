@@ -7,7 +7,7 @@ export class AuthHelpers {
   private supabase = createClient()
 
   // Sign up new user
-  async signUp(email: string, password: string, userData?: Partial<UserProfile>) {
+  async signUp(email: string, password: string, userData?: Record<string, any>) {
     const { data, error } = await this.supabase.auth.signUp({
       email,
       password,

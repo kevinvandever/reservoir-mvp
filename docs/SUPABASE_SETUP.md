@@ -43,15 +43,52 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ## Step 4: Set Up Database Schema
 
-1. In your Supabase dashboard, go to **SQL Editor**
-2. Click "New query"
-3. Copy and paste the contents of `scripts/setup-database.sql`
-4. Click "Run" to execute the script
+You have two options for setting up the database schema:
 
-This will create:
-- `user_profiles` table with proper RLS policies
-- Automatic triggers for profile creation
-- Necessary indexes for performance
+### Option A: Run Migration Files (Recommended)
+
+1. In your Supabase dashboard, go to **SQL Editor**
+2. Run the migration files in order:
+
+   **Migration 1: Initial Schema**
+   - Click "New query"
+   - Copy and paste the contents of `supabase/migrations/20250817000001_initial_schema.sql`
+   - Click "Run"
+
+   **Migration 2: RLS Policies**
+   - Click "New query"
+   - Copy and paste the contents of `supabase/migrations/20250817000002_add_rls_policies.sql`
+   - Click "Run"
+
+   **Migration 3: Performance Indexes**
+   - Click "New query"  
+   - Copy and paste the contents of `supabase/migrations/20250817000003_add_indexes.sql`
+   - Click "Run"
+
+   **Migration 4: Seed Data**
+   - Click "New query"
+   - Copy and paste the contents of `supabase/migrations/20250817000004_seed_data.sql`
+   - Click "Run"
+
+### Option B: Use Supabase CLI (If Available)
+
+```bash
+# From project root
+./scripts/run-migrations.sh
+```
+
+### What Gets Created:
+
+- **13 core tables** for the complete platform
+- **User profiles** with business attributes and experience levels
+- **Questionnaire system** for AI-driven discovery
+- **Automation library** with step-by-step implementations
+- **Progress tracking** for user automation journeys
+- **Weekly discoveries** with AI recommendations
+- **Subscription management** with Stripe integration
+- **Comprehensive RLS policies** for data security
+- **50+ performance indexes** including vector search
+- **Sample data** for testing and development
 
 ## Step 5: Configure Authentication
 

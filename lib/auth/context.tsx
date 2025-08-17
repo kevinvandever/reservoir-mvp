@@ -11,7 +11,7 @@ interface AuthContextType {
   session: Session | null
   profile: UserProfile | null
   loading: boolean
-  signUp: (email: string, password: string, userData?: Partial<UserProfile>) => Promise<void>
+  signUp: (email: string, password: string, userData?: Partial<Pick<UserProfile, 'full_name' | 'company_name' | 'industry' | 'business_size' | 'experience_level' | 'role'>>) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
   updateProfile: (updates: Partial<UserProfile>) => Promise<void>
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   // Sign up new user
-  const signUp = async (email: string, password: string, userData?: Partial<UserProfile>) => {
+  const signUp = async (email: string, password: string, userData?: Partial<Pick<UserProfile, 'full_name' | 'company_name' | 'industry' | 'business_size' | 'experience_level' | 'role'>>) => {
     try {
       const { user: newUser } = await authHelpers.signUp(email, password, userData)
       
@@ -65,7 +65,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           full_name: userData?.full_name || null,
           company_name: userData?.company_name || null,
           industry: userData?.industry || null,
+          business_size: userData?.business_size || null,
+          experience_level: userData?.experience_level || 'beginner',
           role: userData?.role || 'user',
+          onboarding_completed: false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }

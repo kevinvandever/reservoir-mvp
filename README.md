@@ -1,5 +1,8 @@
 # Reservoir MVP
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status)](https://app.netlify.com/sites/reservoir-mvp/deploys)
+[![CI/CD Pipeline](https://github.com/YOUR_USERNAME/reservoir-mvp/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/YOUR_USERNAME/reservoir-mvp/actions)
+
 A Next.js 14 application for business automation discovery and implementation guidance platform.
 
 ## Tech Stack
@@ -102,12 +105,37 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 4. Create feature branches for new functionality
 5. Follow conventional commit messages
 
+## Deployment
+
+### Production Deployment
+This project is deployed on Netlify with continuous deployment from the `main` branch.
+
+- **Production URL**: `https://reservoir-mvp.netlify.app` (update with actual domain)
+- **Staging URL**: `https://develop--reservoir-mvp.netlify.app`
+- **Preview Deployments**: Created automatically for pull requests
+
+### Deployment Configuration
+- **Platform**: Netlify
+- **Build Command**: `npm ci && npm run build`
+- **Publish Directory**: `.next`
+- **Node Version**: 18.x
+- **Environment Variables**: Configured in Netlify dashboard
+
+### Manual Deployment
+For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+Quick setup:
+1. Connect repository to Netlify
+2. Configure environment variables
+3. Deploy from `main` branch
+
 ## Documentation
 
 - `/docs/architecture/` - Technical architecture specifications
 - `/docs/frontend/` - Frontend design and UX specifications  
 - `/docs/stories/` - User stories and development tasks
 - `/future-phases/` - Future development phases
+- `DEPLOYMENT.md` - Production deployment guide
 
 ## Project Status
 

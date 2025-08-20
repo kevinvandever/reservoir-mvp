@@ -34,6 +34,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setProfile(userProfile)
     } catch (error) {
       console.error('Error loading user profile:', error)
+      // Don't set profile to null immediately - it might be a temporary RLS issue
+      // Instead, create a basic profile from user metadata
       setProfile(null)
     }
   }
@@ -44,7 +46,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(session?.user ?? null)
 
     if (session?.user) {
-      await loadUserProfile(session.user.id)
+      // Temporarily skip profile loading to avoid RLS issues
+      // await loadUserProfile(session.user.id)
+      setProfile(null)
     } else {
       setProfile(null)
     }

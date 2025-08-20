@@ -1,0 +1,118 @@
+/* Print and PDF Export Styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* Hide elements that shouldn't be printed */
+  button,
+  .no-print,
+  [data-export-button],
+  nav,
+  .navigation {
+    display: none !important;
+  }
+
+  /* Ensure content fills the page */
+  #report-content {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+  }
+
+  /* Better page breaks */
+  .page-break {
+    page-break-after: always;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Cards and sections */
+  .card,
+  [role="article"] {
+    page-break-inside: avoid;
+    border: 1px solid #ddd !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Headers */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    color: #000 !important;
+  }
+
+  /* Tables */
+  table {
+    page-break-inside: avoid;
+  }
+
+  /* Charts and images */
+  img, svg {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Links */
+  a {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Hide shadows and gradients */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+  }
+
+  /* Better contrast for badges */
+  .badge {
+    border: 1px solid #000 !important;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* Ensure dark mode doesn't affect print */
+  .dark * {
+    color: #000 !important;
+    background: #fff !important;
+  }
+}
+
+/* Styles specifically for PDF generation */
+.pdf-export {
+  /* Ensure consistent rendering */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Better font rendering */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure backgrounds are visible */
+  .bg-blue-50,
+  .bg-green-50,
+  .bg-yellow-50,
+  .bg-red-50 {
+    background-color: rgb(239 246 255) !important;
+  }
+
+  /* Preserve card styling */
+  .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+}

@@ -1,5 +1,4 @@
 import { createClient } from './client'
-import { createClient as createServerClient } from './server'
 import type { UserProfile } from './types'
 
 // Client-side auth helpers
@@ -12,7 +11,8 @@ export class AuthHelpers {
       email,
       password,
       options: {
-        data: userData || {}
+        data: userData || {},
+        emailRedirectTo: `${window.location.origin}/auth/confirm`
       }
     })
 
@@ -82,55 +82,5 @@ export class AuthHelpers {
   }
 }
 
-// Server-side auth helpers
-export class ServerAuthHelpers {
-  private supabase = createServerClient()
-
-  // Get user from server-side context
-  async getUser() {
-    const { data: { user }, error } = await this.supabase.auth.getUser()
-    if (error) throw error
-    return user
-  }
-
-  // Get user session from server-side context
-  async getSession() {
-    const { data: { session }, error } = await this.supabase.auth.getSession()
-    if (error) throw error
-    return session
-  }
-
-  // Verify user is authenticated
-  async requireAuth() {
-    const user = await this.getUser()
-    if (!user) {
-      throw new Error('Authentication required')
-    }
-    return user
-  }
-
-  // Get user profile with auth check
-  async getUserProfile(userId?: string) {
-    const user = await this.requireAuth()
-    const targetUserId = userId || user.id
-
-    // Users can only access their own profile unless admin
-    if (targetUserId !== user.id) {
-      // TODO: Add admin role check when roles are implemented
-      throw new Error('Access denied')
-    }
-
-    const { data, error } = await this.supabase
-      .from('user_profiles')
-      .select('*')
-      .eq('id', targetUserId)
-      .single()
-
-    if (error) throw error
-    return data
-  }
-}
-
-// Singleton instances
+// Singleton instance for client-side use
 export const authHelpers = new AuthHelpers()
-export const serverAuthHelpers = new ServerAuthHelpers()

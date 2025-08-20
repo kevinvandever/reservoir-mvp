@@ -26,14 +26,14 @@ INSERT INTO automations (
   'Create drip campaigns that automatically send targeted emails based on user actions, increasing conversion rates by up to 40%.',
   'Marketing Automation',
   ARRAY['email marketing', 'lead nurturing', 'automation', 'conversion'],
-  'medium',
+  'medium'::difficulty_level,
   180,
-  ARRAY['small-team', 'large-team'],
+  ARRAY['small-team', 'large-team']::business_size[],
   ARRAY['email platform', 'CRM'],
   ARRAY['Mailchimp', 'HubSpot', 'Zapier'],
   85.50,
   4.7,
-  'published',
+  'published'::automation_status,
   NOW() - INTERVAL '30 days'
 ),
 (
@@ -43,14 +43,14 @@ INSERT INTO automations (
   'Schedule weeks of social media content in advance with AI assistance, saving 10+ hours per week.',
   'Social Media',
   ARRAY['social media', 'content creation', 'scheduling', 'AI'],
-  'easy',
+  'easy'::difficulty_level,
   60,
-  ARRAY['solo', 'small-team'],
+  ARRAY['solo', 'small-team']::business_size[],
   ARRAY['social media accounts'],
   ARRAY['Buffer', 'Hootsuite', 'ChatGPT'],
   92.30,
   4.5,
-  'published',
+  'published'::automation_status,
   NOW() - INTERVAL '15 days'
 ),
 (
@@ -60,14 +60,14 @@ INSERT INTO automations (
   'Transform your customer support with intelligent ticket routing and automated responses for common issues.',
   'Customer Service',
   ARRAY['customer support', 'AI', 'ticket management', 'efficiency'],
-  'hard',
+  'hard'::difficulty_level,
   240,
-  ARRAY['small-team', 'large-team'],
+  ARRAY['small-team', 'large-team']::business_size[],
   ARRAY['helpdesk software', 'CRM'],
   ARRAY['Zendesk', 'Intercom', 'OpenAI API'],
   78.90,
   4.2,
-  'published',
+  'published'::automation_status,
   NOW() - INTERVAL '7 days'
 ),
 (
@@ -77,14 +77,14 @@ INSERT INTO automations (
   'Never run out of stock again with intelligent inventory monitoring and automatic reorder suggestions.',
   'Inventory Management',
   ARRAY['inventory', 'alerts', 'automation', 'e-commerce'],
-  'medium',
+  'medium'::difficulty_level,
   120,
-  ARRAY['small-team', 'large-team'],
+  ARRAY['small-team', 'large-team']::business_size[],
   ARRAY['e-commerce platform', 'inventory system'],
   ARRAY['Shopify', 'Google Sheets', 'Zapier'],
   95.20,
   4.8,
-  'published',
+  'published'::automation_status,
   NOW() - INTERVAL '20 days'
 ),
 (
@@ -94,39 +94,39 @@ INSERT INTO automations (
   'Let AI manage your to-do list, automatically scheduling tasks and sending reminders for optimal productivity.',
   'Personal Productivity',
   ARRAY['productivity', 'AI', 'task management', 'personal'],
-  'easy',
+  'easy'::difficulty_level,
   45,
-  ARRAY['solo'],
+  ARRAY['solo']::business_size[],
   ARRAY['task management app'],
   ARRAY['Todoist', 'Google Calendar', 'ChatGPT'],
   67.40,
   4.3,
-  'published',
+  'published'::automation_status,
   NOW() - INTERVAL '5 days'
 );
 
 -- Insert automation tools for the sample automations
 INSERT INTO automation_tools (automation_id, tool_name, tool_category, is_required, setup_complexity, monthly_cost, free_tier_available, integration_notes, tool_url) VALUES
 -- Email Marketing Tools
-('550e8400-e29b-41d4-a716-446655440001', 'Mailchimp', 'Email Marketing', true, 'easy', 20.00, true, 'Free tier allows up to 2,000 contacts', 'https://mailchimp.com'),
-('550e8400-e29b-41d4-a716-446655440001', 'HubSpot CRM', 'Customer Management', true, 'medium', 45.00, true, 'Free CRM with paid marketing automation', 'https://hubspot.com'),
-('550e8400-e29b-41d4-a716-446655440001', 'Zapier', 'Automation Platform', true, 'easy', 19.99, true, 'Free tier includes 100 tasks/month', 'https://zapier.com'),
+('550e8400-e29b-41d4-a716-446655440001', 'Mailchimp', 'Email Marketing', true, 'easy'::difficulty_level, 20.00, true, 'Free tier allows up to 2,000 contacts', 'https://mailchimp.com'),
+('550e8400-e29b-41d4-a716-446655440001', 'HubSpot CRM', 'Customer Management', true, 'medium'::difficulty_level, 45.00, true, 'Free CRM with paid marketing automation', 'https://hubspot.com'),
+('550e8400-e29b-41d4-a716-446655440001', 'Zapier', 'Automation Platform', true, 'easy'::difficulty_level, 19.99, true, 'Free tier includes 100 tasks/month', 'https://zapier.com'),
 
 -- Social Media Tools
-('550e8400-e29b-41d4-a716-446655440002', 'Buffer', 'Social Media Management', true, 'easy', 15.00, true, 'Free plan for 3 social accounts', 'https://buffer.com'),
-('550e8400-e29b-41d4-a716-446655440002', 'ChatGPT Plus', 'AI Content Generation', false, 'easy', 20.00, false, 'Optional for AI content suggestions', 'https://openai.com'),
+('550e8400-e29b-41d4-a716-446655440002', 'Buffer', 'Social Media Management', true, 'easy'::difficulty_level, 15.00, true, 'Free plan for 3 social accounts', 'https://buffer.com'),
+('550e8400-e29b-41d4-a716-446655440002', 'ChatGPT Plus', 'AI Content Generation', false, 'easy'::difficulty_level, 20.00, false, 'Optional for AI content suggestions', 'https://openai.com'),
 
 -- Customer Support Tools
-('550e8400-e29b-41d4-a716-446655440003', 'Zendesk', 'Customer Support', true, 'medium', 55.00, true, 'Free trial for 14 days', 'https://zendesk.com'),
-('550e8400-e29b-41d4-a716-446655440003', 'OpenAI API', 'AI Processing', true, 'hard', 10.00, false, 'Pay-per-use pricing', 'https://openai.com/api'),
+('550e8400-e29b-41d4-a716-446655440003', 'Zendesk', 'Customer Support', true, 'medium'::difficulty_level, 55.00, true, 'Free trial for 14 days', 'https://zendesk.com'),
+('550e8400-e29b-41d4-a716-446655440003', 'OpenAI API', 'AI Processing', true, 'hard'::difficulty_level, 10.00, false, 'Pay-per-use pricing', 'https://openai.com/api'),
 
 -- Inventory Management Tools
-('550e8400-e29b-41d4-a716-446655440004', 'Shopify', 'E-commerce Platform', true, 'medium', 29.00, true, '14-day free trial', 'https://shopify.com'),
-('550e8400-e29b-41d4-a716-446655440004', 'Google Sheets', 'Spreadsheet', true, 'easy', 0.00, true, 'Completely free with Google account', 'https://sheets.google.com'),
+('550e8400-e29b-41d4-a716-446655440004', 'Shopify', 'E-commerce Platform', true, 'medium'::difficulty_level, 29.00, true, '14-day free trial', 'https://shopify.com'),
+('550e8400-e29b-41d4-a716-446655440004', 'Google Sheets', 'Spreadsheet', true, 'easy'::difficulty_level, 0.00, true, 'Completely free with Google account', 'https://sheets.google.com'),
 
 -- Personal Productivity Tools
-('550e8400-e29b-41d4-a716-446655440005', 'Todoist', 'Task Management', true, 'easy', 4.00, true, 'Free tier with basic features', 'https://todoist.com'),
-('550e8400-e29b-41d4-a716-446655440005', 'Google Calendar', 'Calendar', true, 'easy', 0.00, true, 'Free with Google account', 'https://calendar.google.com');
+('550e8400-e29b-41d4-a716-446655440005', 'Todoist', 'Task Management', true, 'easy'::difficulty_level, 4.00, true, 'Free tier with basic features', 'https://todoist.com'),
+('550e8400-e29b-41d4-a716-446655440005', 'Google Calendar', 'Calendar', true, 'easy'::difficulty_level, 0.00, true, 'Free with Google account', 'https://calendar.google.com');
 
 -- Insert implementation steps for the first automation (Email Marketing)
 INSERT INTO implementation_steps (
@@ -203,101 +203,6 @@ INSERT INTO implementation_steps (
  ARRAY['AI prompts created for different post types', 'Content generation workflow established'],
  ARRAY['Create specific prompts for your industry', 'Always review AI-generated content before posting']);
 
--- Create a sample test user profile (for development only)
--- Note: This would normally be created through the auth flow
-INSERT INTO user_profiles (
-  id,
-  email,
-  full_name,
-  company_name,
-  industry,
-  business_size,
-  experience_level,
-  role,
-  onboarding_completed
-) VALUES (
-  '550e8400-e29b-41d4-a716-446655440000',
-  'test@reservoir-mvp.com',
-  'Test User',
-  'Reservoir MVP',
-  'Software Development',
-  'small-team',
-  'intermediate',
-  'admin',
-  true
-) ON CONFLICT (id) DO NOTHING;
-
--- Insert sample questionnaire session for the test user
-INSERT INTO questionnaire_sessions (
-  id,
-  user_id,
-  session_status,
-  current_step,
-  total_steps,
-  session_data,
-  completion_percentage,
-  completed_at
-) VALUES (
-  '550e8400-e29b-41d4-a716-446655440010',
-  '550e8400-e29b-41d4-a716-446655440000',
-  'completed',
-  10,
-  10,
-  '{"business_type": "saas", "team_size": 5, "main_challenges": ["time_management", "customer_acquisition"]}',
-  100.00,
-  NOW() - INTERVAL '1 day'
-) ON CONFLICT (id) DO NOTHING;
-
--- Insert sample user automation (test user working on email marketing)
-INSERT INTO user_automations (
-  user_id,
-  automation_id,
-  status,
-  progress_percentage,
-  current_step,
-  notes,
-  started_at
-) VALUES (
-  '550e8400-e29b-41d4-a716-446655440000',
-  '550e8400-e29b-41d4-a716-446655440001',
-  'in_progress',
-  50.00,
-  2,
-  'Making good progress on email automation setup. Mailchimp account configured.',
-  NOW() - INTERVAL '3 days'
-) ON CONFLICT (user_id, automation_id) DO NOTHING;
-
--- Insert sample weekly discovery for the test user
-INSERT INTO weekly_discoveries (
-  user_id,
-  week_of,
-  discovery_criteria,
-  ai_reasoning
-) VALUES (
-  '550e8400-e29b-41d4-a716-446655440000',
-  DATE_TRUNC('week', NOW()),
-  '{"business_size": "small-team", "experience_level": "intermediate", "focus_areas": ["marketing", "productivity"]}',
-  'Based on user profile and current automation progress, focusing on marketing automation and productivity tools that complement their existing email marketing efforts.'
-) ON CONFLICT (user_id, week_of) DO NOTHING;
-
--- Insert discovered automations for the weekly discovery
-INSERT INTO discovered_automations (
-  discovery_id,
-  automation_id,
-  relevance_score,
-  ai_explanation,
-  display_order
-) VALUES (
-  (SELECT id FROM weekly_discoveries WHERE user_id = '550e8400-e29b-41d4-a716-446655440000' AND week_of = DATE_TRUNC('week', NOW())),
-  '550e8400-e29b-41d4-a716-446655440002',
-  95.50,
-  'Perfect complement to email marketing - social media automation will help create a comprehensive marketing funnel.',
-  1
-),
-(
-  (SELECT id FROM weekly_discoveries WHERE user_id = '550e8400-e29b-41d4-a716-446655440000' AND week_of = DATE_TRUNC('week', NOW())),
-  '550e8400-e29b-41d4-a716-446655440004',
-  78.30,
-  'Inventory management automation could help streamline operations as the business grows.',
-  2
-) ON CONFLICT (discovery_id, automation_id) DO NOTHING;
+-- Note: User-specific data (user_profiles, questionnaire_sessions, user_automations, etc.)
+-- will be created when real users sign up through the authentication flow.
+-- This seed data focuses on the core automation content only.

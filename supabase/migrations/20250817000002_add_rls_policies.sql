@@ -26,14 +26,11 @@ CREATE POLICY "Users can update own profile" ON user_profiles
 CREATE POLICY "Users can insert own profile" ON user_profiles
   FOR INSERT WITH CHECK (auth.uid() = id);
 
-CREATE POLICY "Admins have full access to profiles" ON user_profiles
-  FOR ALL USING (
-    EXISTS (
-      SELECT 1 FROM user_profiles
-      WHERE user_profiles.id = auth.uid()
-      AND user_profiles.role = 'admin'
-    )
-  );
+-- Skip admin policy for now to avoid recursion
+-- CREATE POLICY "Admins have full access to profiles" ON user_profiles
+--   FOR ALL USING (
+--     (auth.jwt() ->> 'user_metadata' ->> 'role') = 'admin'
+--   );
 
 -- Questionnaire Sessions Policies
 CREATE POLICY "Users can view own questionnaire sessions" ON questionnaire_sessions

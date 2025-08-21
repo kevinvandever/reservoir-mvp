@@ -27,7 +27,11 @@ export default function PremiumLandingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!code.trim()) return
+    console.log('🚀 Form submitted! Raw code:', code)
+    if (!code.trim()) {
+      console.log('❌ No code provided, stopping')
+      return
+    }
 
     console.log('🔄 Submitting access code:', code)
     setLoading(true)
@@ -55,6 +59,7 @@ export default function PremiumLandingPage() {
       )
       
       console.log('✅ Validation result:', result)
+      console.log('🔍 Result details:', JSON.stringify(result, null, 2))
       
       if (result.valid && result.access_code_id) {
         console.log('🎉 Valid code! Setting session...')
@@ -71,11 +76,21 @@ export default function PremiumLandingPage() {
           startedAt: new Date().toISOString()
         })
         
-        console.log('🚀 Redirecting to questionnaire...')
-        // Redirect to questionnaire
-        router.push('/questionnaire')
+        console.log('💾 Session stored successfully')
+        console.log('🚀 Attempting redirect to questionnaire...')
+        
+        // Force a hard redirect if router.push doesn't work
+        try {
+          await router.push('/questionnaire')
+          console.log('✅ Router.push completed')
+        } catch (routerError) {
+          console.error('❌ Router.push failed:', routerError)
+          console.log('🔄 Trying window.location.href fallback...')
+          window.location.href = '/questionnaire'
+        }
       } else {
         console.log('❌ Invalid code:', result.error_message)
+        console.log('🔍 Full result object:', result)
         setError(result.error_message || 'Invalid access code')
       }
     } catch (err) {
@@ -208,11 +223,24 @@ export default function PremiumLandingPage() {
                 </Button>
               </form>
               
-              <div className="mt-8 text-center">
+              <div className="mt-8 text-center space-y-4">
                 <p className="text-blue-300 text-sm leading-relaxed">
                   Don't have an access code?<br />
                   <span className="text-blue-200">Contact your ClockworkCoaching representative for immediate access.</span>
                 </p>
+                
+                {/* Debug button - remove after testing */}
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    console.log('🧪 Debug navigation test')
+                    router.push('/questionnaire')
+                  }}
+                  className="bg-white/10 border-white/30 text-white hover:bg-white/20"
+                >
+                  Debug: Test Navigation
+                </Button>
               </div>
             </CardContent>
           </Card>

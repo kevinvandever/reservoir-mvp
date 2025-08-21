@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { createClient } from '@/lib/supabase/client'
 
 export interface Message {
   id: string
@@ -136,25 +135,28 @@ export const useQuestionnaireStore = create<QuestionnaireState>((set, get) => ({
   
   startNewSession: async () => {
     try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
+      // Use access code session instead of Supabase user authentication
+      const accessSessionData = localStorage.getItem('accessSession')
       
-      if (!user) {
-        console.error('User not authenticated')
+      if (!accessSessionData) {
+        console.error('No access session found - user must enter valid access code first')
         return
       }
       
-      // Always create a new session - session resumption should be explicit
+      const accessSession = JSON.parse(accessSessionData)
+      console.log('📋 Starting questionnaire session for access session:', accessSession.sessionId)
+      
+      // Always create a new questionnaire session - session resumption should be explicit
       // This prevents unwanted message persistence on page reload
       
-      // Generate a unique, consistent session ID
-      const sessionId = `${user.id}_${Date.now()}`
+      // Generate a unique questionnaire session ID based on access session
+      const sessionId = `questionnaire_${accessSession.sessionId}_${Date.now()}`
       
-      // Clear any old session data to prevent persistence issues
+      // Clear any old questionnaire session data to prevent persistence issues
       localStorage.removeItem('questionnaire_session')
       localStorage.removeItem('questionnaire_data')
       
-      // Save to localStorage
+      // Save questionnaire session to localStorage
       localStorage.setItem('questionnaire_session', sessionId)
       
       set({
@@ -166,10 +168,10 @@ export const useQuestionnaireStore = create<QuestionnaireState>((set, get) => ({
         isSaving: false,
       })
       
-      console.log('New session started successfully:', sessionId)
+      console.log('✅ New questionnaire session started successfully:', sessionId)
       
     } catch (error) {
-      console.error('Error starting new session:', error)
+      console.error('❌ Error starting new questionnaire session:', error)
     }
   },
   

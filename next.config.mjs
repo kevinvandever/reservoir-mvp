@@ -18,14 +18,7 @@ const nextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/.netlify/functions/:path*',
-      },
-    ]
-  },
+  // Removed API rewrites - let @netlify/plugin-nextjs handle them automatically
 };
 
 export default nextConfig;

@@ -11,7 +11,9 @@ import type {
 export class AccessCodeService {
   private supabase = createClient()
   private mockService = new MockAccessCodeService()
-  private useMockService = process.env.NODE_ENV === 'development' // Use mock service in development
+  // Use mock service only in development or when explicitly set
+  private useMockService = process.env.NEXT_PUBLIC_USE_MOCK_ACCESS === 'true' || 
+                           (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_MOCK_ACCESS !== 'false')
 
   /**
    * Generate a new access code

@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { withAuth } from '@/lib/auth/middleware'
-import { serverAuthHelpers } from '@/lib/supabase/auth-helpers'
+import { createClient } from '@/lib/supabase/server'
+
+// Disable static generation for API routes
+export const dynamic = 'force-dynamic'
 
 // GET /api/user/profile - Get current user's profile
 export const GET = withAuth(async (req) => {
   try {
     const user = req.user
-    const profile = await serverAuthHelpers.getUserProfile(user.id)
+    const supabase = createClient()
+    const { data: profile, error } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single()
+    
+    if (error) throw error
     
     return NextResponse.json({
       user: {
@@ -48,8 +58,16 @@ export const PUT = withAuth(async (req) => {
       )
     }
     
-    // Update the profile using auth helpers
-    const updatedProfile = await serverAuthHelpers.getUserProfile(user.id)
+    // Update the profile
+    const supabase = createClient()
+    const { data: updatedProfile, error } = await supabase
+      .from('user_profiles')
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq('id', user.id)
+      .select()
+      .single()
+    
+    if (error) throw error
     
     return NextResponse.json({
       message: 'Profile updated successfully',
